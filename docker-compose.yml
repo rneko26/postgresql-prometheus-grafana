@@ -19,8 +19,6 @@ services:
         ports:
             - "5432:5432"
         restart: unless-stopped
-        networks:
-            - monitoring
 
 
     prometheus:
@@ -37,8 +35,6 @@ services:
         ports:
             - "${PROMETHEUS_PORT:-9090}:9090"
         restart: unless-stopped
-        networks:
-             - monitoring
 
     grafana:
         image: grafana/grafana
@@ -51,8 +47,6 @@ services:
         ports:
             - "${GRAFANA_PORT:-3000}:3000"
         restart: unless-stopped
-        networks:
-            - monitoring
 
     postgresql-exporter:
         image: prometheuscommunity/postgres-exporter
@@ -67,8 +61,6 @@ services:
             postgresql:
                 condition: service_healthy
         restart: unless-stopped
-        networks:
-            - monitoring
 
 volumes:
     postgresql:
@@ -77,6 +69,3 @@ volumes:
     postgresql-exporter:
 
 
-networks:
-    monitoring:
-        driver: bridge
